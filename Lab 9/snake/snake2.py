@@ -28,6 +28,8 @@ clock = pygame.time.Clock()
 # Fonts
 font = pygame.font.SysFont("Verdana", 20)
 
+color = (random.randint(1, 250), random.randint(1, 250), random.randint(1, 250))
+
 class Food:
     """Class to represent food items with different weights and timers"""
     def __init__(self, snake):
@@ -63,7 +65,8 @@ class Food:
 def draw_snake(snake):
     """Draw the snake on screen"""
     for segment in snake:
-        pygame.draw.rect(screen, GREEN, pygame.Rect(segment[0], segment[1], CELL_SIZE, CELL_SIZE))
+        
+        pygame.draw.rect(screen, color, pygame.Rect(segment[0], segment[1], CELL_SIZE, CELL_SIZE))
 
 def game_over_screen(score, level):
     """Display game over screen with final stats"""
@@ -128,6 +131,9 @@ while running:
     # Check if snake eats food
     if new_head == food.position:
         score += food.type["weight"]
+        
+        color = (random.randint(1, 250), random.randint(1, 250), random.randint(1, 250))
+        pygame.mixer.Sound("jump.mp3").play()
         
         # Level up every 5 points (regardless of food weight)
         if score // 5 >= level:

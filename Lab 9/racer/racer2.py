@@ -86,10 +86,11 @@ class Coin(Entity):
 # Create game objects
 player = Player()
 enemy = Enemy()
+enemy2 = Enemy()
 
 # Create sprite groups
-all_sprites = pygame.sprite.Group(player, enemy)
-enemies = pygame.sprite.Group(enemy)
+all_sprites = pygame.sprite.Group(player, enemy, enemy2)
+enemies = pygame.sprite.Group(enemy, enemy2)
 coins = pygame.sprite.Group()
 
 # Create first coin
@@ -127,6 +128,7 @@ while running:
     # Update game objects
     player.move()
     enemy.move()
+    enemy2.move()
     
     # Move all coins
     for coin in coins:
@@ -144,7 +146,7 @@ while running:
     # Check for collisions with coins
     coins_collected = pygame.sprite.spritecollide(player, coins, True)
     for coin in coins_collected:
-        COINS_COLLECTED += 1  # Each coin is worth 1 point
+        COINS_COLLECTED += random.randint(1, 3)  # Each coin is worth 1 point
         # Increase enemy speed every 5 coins collected
         if COINS_COLLECTED % 5 == 0:
             SPEED += 1
